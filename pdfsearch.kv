@@ -1,0 +1,54 @@
+<PdfSearch>:
+    BoxLayout:
+        id:content
+        orientation: 'vertical'
+
+        BoxLayout:
+            id:search_box
+            height:'100dp'
+            padding: '10dp'
+            size_hint_y:None
+            orientation:'horizontal'
+
+            BoxLayout:
+                orientation:'vertical'
+                TextInput:
+                    id:extension
+                    multiine:False
+                    # size_hint_x:0.3
+                    hint_text:'File type'
+
+                TextInput:
+                    id:input
+                    multiine:False
+                    # size_hint_x:0.3
+                    hint_text:'Keyword'
+            
+            Button:
+                text:'Go'
+                width:'100dp'
+                size_hint_x:None
+                on_press:root.search(None)
+                background_color:0.7,1,9
+            
+            Button:
+                text:"Browse"
+                size_hint_x: None
+                width: '70dp'
+                height:'48dp'
+                on_press: root.select_root_dir(None)
+
+        GridLayout:
+            id:result_box
+            cols:3
+
+<RootDirScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        FileChooserListView:
+            id: file_chooser
+        Button:
+            text: 'Set Root Directory'
+            size_hint_y: None
+            height: '48dp'
+            on_press: root.set_root_dir()

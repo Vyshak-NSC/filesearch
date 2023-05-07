@@ -1,0 +1,47 @@
+import kivy,os
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout
+
+root_dir = os.getcwd()
+class PdfSearch(BoxLayout):
+    def __init__(self, **kwargs):
+        super(PdfSearch, self).__init__(**kwargs)
+        self.input = self.ids.input
+        self.results = []
+
+    def search(self, event):
+        self.found_list = []
+        self.ids.result_box.clear_widgets()
+        ext = self.ids.extension.text
+        extension = '.' + self.ids.extension.text if ext else '.txt'
+        key = self.input.text
+        for dir, sub_dir, file_lst in os.walk(root_dir):
+            for file in file_lst:
+                if file.endswith(extension):
+                    with open(file,'r+') as item:
+                        data = item.read()
+                        if key in data:
+                            self.found_list.append(file)
+        self.add_results()
+  
+    def add_results(self):
+        for i in self.found_list:
+            button_exists = False
+            for child in self.ids.result_box.children:
+                if isinstance(child, Button) and child.text == i:
+                    button_exists = True
+                    break
+            if not button_exists:
+                lbl = Button(text=i, background_color=(0.2, 0.2, 0.2))
+                self.ids.result_box.add_widget(lbl)
+
+class PdfSearchApp(App):
+    def build(self):
+        return PdfSearch()
+
+if __name__ == '__main__':
+    PdfSearchApp().run()
