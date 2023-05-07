@@ -16,7 +16,7 @@ source.dir = .
 version = 1.0
 
 # (list) Application requirements
-requirements = kivy, android.permissions
+requirements = kivy
 
 # (str) Custom source folders for requirements
 # Sets custom folder for kivy requirements because the defaults are too big
