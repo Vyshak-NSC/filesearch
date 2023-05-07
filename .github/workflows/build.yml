@@ -63,8 +63,3 @@ jobs:
           buildozer android clean
           buildozer android debug
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-debug.apk
-          path: /path/to/your/app/bin/app-debug.apk
